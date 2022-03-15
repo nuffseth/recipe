@@ -6,8 +6,6 @@ class RecipeSpider(scrapy.Spider):
     name = "recipe"
     idnum = int(0)
     start_urls = ['https://doobydobap.com/recipes']
-    masterBook = CookBook()
-    masterBook['recipes'] = []
 
 
     def parse(self, response):
@@ -15,7 +13,6 @@ class RecipeSpider(scrapy.Spider):
         for page_num in range(1,totalpageNum+1):
             page_url = f'https://doobydobap.com/recipes?_page={page_num}'
             yield scrapy.Request(page_url,callback = self.parsePage)
-        yield self.masterBook
 
     def parsePage(self,response):
         recipeURLs = response.css("h4.pt-cv-title a::attr(href)").getall()
@@ -52,7 +49,6 @@ class RecipeSpider(scrapy.Spider):
             name = ingredient.css("span.wpzoom-rcb-ingredient-name::text").get()
             amount = ingredient.css("span.wpzoom-rcb-ingredient-amount::text").get()
             unit = ingredient.css("span.wpzoom-rcb-ingredient-unit::text").get()
-            print(dict(name = name, amount = amount, unit = unit))
             if(name == None and amount == None and unit == None):
                 if(ingredientList != None):
                     ingredientPart['ingredients'] = ingredientList
@@ -69,7 +65,7 @@ class RecipeSpider(scrapy.Spider):
         recipe['directions'] = response.css("li.direction-step::text").getall()
         self.increment()
 
-        self.masterBook['recipes'].append(dict(recipe))
+        yield recipe
 
     def increment(self):
         self.idnum = self.idnum + 1
