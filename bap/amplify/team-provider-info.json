@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "bapf83c9451": {}
+      },
+      "function": {
+        "bap": {
+          "deploymentBucketName": "amplify-bap-dev-173120-deployment",
+          "s3Key": "amplify-builds/bap-687666484268387a4a36-build.zip"
+        }
       }
     }
   }

@@ -32,10 +32,11 @@ dependencies:
 
   amplify_flutter: ^0.4.0
   amplify_datastore: ^0.4.0
+  amplify_api: ^0.4.0
+  amplify_auth_cognito: ^0.4.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  provider: ^4.3.1
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +49,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
-  amplify_auth_cognito: ^0.4.0
   amplify_analytics_pinpoint: ^0.4.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
