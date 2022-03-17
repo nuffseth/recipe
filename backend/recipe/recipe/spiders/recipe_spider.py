@@ -1,6 +1,6 @@
 from doctest import master
 import scrapy
-from recipe.items import RecipeItem, Ingredients, CookBook
+from recipe.items import RecipeItem, Ingredients
 
 class RecipeSpider(scrapy.Spider):
     name = "recipe"
@@ -21,11 +21,11 @@ class RecipeSpider(scrapy.Spider):
     
     def parseRecipe(self,response):
         recipe = RecipeItem()
-
-
-        recipe['id'] = str(self.idnum)
+        recipe['id'] = None
+        recipe['idnum'] = str(self.idnum)
+        recipe['imageURL'] = response.css("div.wp-block-kadence-column.inner-column-1.kadence-column_110970-41 img::attr(src)").get()
         recipe['name'] = response.css("h2.recipe-card-title::text").get()
-        recipe['author'] = response.css("span.recipe-card-author::text").get()
+        recipe['author'] = response.css("span.recipe-card-author::text").get().split(" ")[2]
         if(response.css("span.recipe-card-cuisine mark::Text").get() == None):
             recipe['cuisine'] = None
         else:

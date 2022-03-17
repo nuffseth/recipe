@@ -3,6 +3,14 @@ import 'package:bap/screens/recipe/RecipeScreen.dart';
 import 'package:bap/utils/constants.dart';
 import 'package:bap/utils/size_config.dart';
 
+// Amplify Flutter Packages
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:bap/models/ModelProvider.dart';
+import 'package:bap/amplifyconfiguration.dart';
+import 'package:amplify_api/amplify_api.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -11,9 +19,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //Amplify config
+  @override
+  initState() {
+    super.initState();
+    _configureAmplify();
+  }
+
+  void _configureAmplify() async {
+    // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
+    //AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
+    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
+    await Amplify.addPlugins([authPlugin]);
+
+    // Once Plugins are added, configure Amplify
+    // Note: Amplify can only be configured once.
+    try {
+      await Amplify.configure(amplifyconfig);
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
+    }
+  }
+
   int currentIndex = 0;
   static List<Widget> pages = <Widget>[
-    Recipe(),
+    Icon(Icons.account_circle_rounded), //RecipeScreen(),
     Icon(Icons.ac_unit, size: 150),
     Icon(Icons.access_alarm_outlined, size: 150),
     Icon(Icons.account_box, size: 150)

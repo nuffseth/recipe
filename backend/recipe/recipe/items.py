@@ -5,11 +5,10 @@
 
 import scrapy
 
-class CookBook(scrapy.Item):
-    recipes = scrapy.Field()
-
 class RecipeItem(scrapy.Item):
     id = scrapy.Field()
+    idnum = scrapy.Field()
+    imageURL = scrapy.Field()
     name = scrapy.Field()
     author = scrapy.Field()
     cuisine = scrapy.Field()
