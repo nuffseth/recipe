@@ -1,4 +1,3 @@
-import 'package:amplify_api/model_mutations.dart';
 import 'package:bap/custom/BorderBox.dart';
 import 'package:bap/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -9,17 +8,6 @@ class RecipeItem extends StatelessWidget {
   final Recipe recipe;
 
   const RecipeItem({required this.recipe, Key? key}) : super(key: key);
-
-  void _deleteRecipe(BuildContext context) async {
-    try {
-      // to delete data from DataStore, we pass the model instance to
-      // Amplify.DataStore.delete()
-      final request = ModelMutations.delete(recipe);
-      final response = await Amplify.API.mutate(request: request).response;
-    } catch (e) {
-      print('An error occurred while deleting Recipe: $e');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

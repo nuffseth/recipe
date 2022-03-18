@@ -23,7 +23,6 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
-
 /** This is an auto generated class representing the Ingredients type in your schema. */
 @immutable
 class Ingredients extends Model {
@@ -33,139 +32,190 @@ class Ingredients extends Model {
   final List<String>? _ingredients;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
+  final String? _recipeIngredientsId;
 
   @override
   getInstanceType() => classType;
-  
+
   @override
   String getId() {
     return id;
   }
-  
+
   String get name {
     try {
       return _name!;
-    } catch(e) {
+    } catch (e) {
       throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   List<String>? get ingredients {
     return _ingredients;
   }
-  
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const Ingredients._internal({required this.id, required name, ingredients, createdAt, updatedAt}): _name = name, _ingredients = ingredients, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory Ingredients({String? id, required String name, List<String>? ingredients}) {
-    return Ingredients._internal(
-      id: id == null ? UUID.getUUID() : id,
-      name: name,
-      ingredients: ingredients != null ? List<String>.unmodifiable(ingredients) : ingredients);
+
+  String? get recipeIngredientsId {
+    return _recipeIngredientsId;
   }
-  
+
+  const Ingredients._internal(
+      {required this.id,
+      required name,
+      ingredients,
+      createdAt,
+      updatedAt,
+      recipeIngredientsId})
+      : _name = name,
+        _ingredients = ingredients,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt,
+        _recipeIngredientsId = recipeIngredientsId;
+
+  factory Ingredients(
+      {String? id,
+      required String name,
+      List<String>? ingredients,
+      String? recipeIngredientsId}) {
+    return Ingredients._internal(
+        id: id == null ? UUID.getUUID() : id,
+        name: name,
+        ingredients: ingredients != null
+            ? List<String>.unmodifiable(ingredients)
+            : ingredients,
+        recipeIngredientsId: recipeIngredientsId);
+  }
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Ingredients &&
-      id == other.id &&
-      _name == other._name &&
-      DeepCollectionEquality().equals(_ingredients, other._ingredients);
+        id == other.id &&
+        _name == other._name &&
+        DeepCollectionEquality().equals(_ingredients, other._ingredients) &&
+        _recipeIngredientsId == other._recipeIngredientsId;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("Ingredients {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("ingredients=" + (_ingredients != null ? _ingredients!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("ingredients=" +
+        (_ingredients != null ? _ingredients!.toString() : "null") +
+        ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write("updatedAt=" +
+        (_updatedAt != null ? _updatedAt!.format() : "null") +
+        ", ");
+    buffer.write("recipeIngredientsId=" + "$_recipeIngredientsId");
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  Ingredients copyWith({String? id, String? name, List<String>? ingredients}) {
+
+  Ingredients copyWith(
+      {String? id,
+      String? name,
+      List<String>? ingredients,
+      String? recipeIngredientsId}) {
     return Ingredients._internal(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      ingredients: ingredients ?? this.ingredients);
+        id: id ?? this.id,
+        name: name ?? this.name,
+        ingredients: ingredients ?? this.ingredients,
+        recipeIngredientsId: recipeIngredientsId ?? this.recipeIngredientsId);
   }
-  
-  Ingredients.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _ingredients = json['ingredients']?.cast<String>(),
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
-  
+
+  Ingredients.fromJson(Map<String, dynamic> json)
+      : id = json['id'] == null ? UUID.getUUID() : json['id'],
+        _name = json['name'],
+        _ingredients = json['ingredients']?.cast<String>(),
+        _createdAt = json['createdAt'] != null
+            ? TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? TemporalDateTime.fromString(json['updatedAt'])
+            : null,
+        _recipeIngredientsId = json['recipeIngredientsId'];
+
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'ingredients': _ingredients, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
+        'id': id,
+        'name': _name,
+        'ingredients': _ingredients,
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format(),
+        'recipeIngredientsId': _recipeIngredientsId
+      };
 
   static final QueryField ID = QueryField(fieldName: "ingredients.id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField INGREDIENTS = QueryField(fieldName: "ingredients");
-  static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
+  static final QueryField RECIPEINGREDIENTSID =
+      QueryField(fieldName: "recipeIngredientsId");
+  static var schema =
+      Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Ingredients";
     modelSchemaDefinition.pluralName = "Ingredients";
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Ingredients.NAME,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
+        key: Ingredients.NAME,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Ingredients.INGREDIENTS,
-      isRequired: false,
-      isArray: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.collection, ofModelName: describeEnum(ModelFieldTypeEnum.string))
-    ));
-    
+        key: Ingredients.INGREDIENTS,
+        isRequired: false,
+        isArray: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.collection,
+            ofModelName: describeEnum(ModelFieldTypeEnum.string))));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
+        fieldName: 'createdAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
+        fieldName: 'updatedAt',
+        isRequired: false,
+        isReadOnly: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Ingredients.RECIPEINGREDIENTSID,
+        isRequired: false,
+        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
   });
 }
 
 class _IngredientsModelType extends ModelType<Ingredients> {
   const _IngredientsModelType();
-  
+
   @override
   Ingredients fromJson(Map<String, dynamic> jsonData) {
     return Ingredients.fromJson(jsonData);

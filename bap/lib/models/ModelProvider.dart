@@ -28,7 +28,7 @@ export 'Recipe.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "407e94eabe08843fa9d20b583b5cb883";
+  String version = "3f9633e504b484f2d0dd927ec3996e37";
   @override
   List<ModelSchema> modelSchemas = [Ingredients.schema, Recipe.schema];
   static final ModelProvider _instance = ModelProvider();

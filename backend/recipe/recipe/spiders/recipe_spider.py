@@ -4,7 +4,6 @@ from recipe.items import RecipeItem, Ingredients
 
 class RecipeSpider(scrapy.Spider):
     name = "recipe"
-    idnum = int(0)
     start_urls = ['https://doobydobap.com/recipes']
 
 
@@ -22,8 +21,7 @@ class RecipeSpider(scrapy.Spider):
     def parseRecipe(self,response):
         recipe = RecipeItem()
         recipe['id'] = None
-        recipe['idnum'] = str(self.idnum)
-        recipe['imageURL'] = response.css("div.wp-block-kadence-column.inner-column-1.kadence-column_110970-41 img::attr(src)").get()
+        recipe['imageURL'] = response.css("div.wp-block-kadence-column.inner-column-1 img::attr(src)").get()
         recipe['name'] = response.css("h2.recipe-card-title::text").get()
         recipe['author'] = response.css("span.recipe-card-author::text").get().split(" ")[2]
         if(response.css("span.recipe-card-cuisine mark::Text").get() == None):
@@ -31,7 +29,7 @@ class RecipeSpider(scrapy.Spider):
         else:
             cuisine = response.css("span.recipe-card-cuisine mark::Text").get().split(", ")
         recipe['difficulty'] = response.css("span.recipe-card-difficulty mark::Text").get()
-        recipe['servingsize'] = response.css("div.detail-item.detail-item-0 p.detail-item-value.only-print-visible::text").get()
+        recipe['servingsize'] = int(response.css("div.detail-item.detail-item-0 p.detail-item-value.only-print-visible::text").get())
         
         preptime = response.css("div.detail-item.detail-item-1 p.detail-item-value::text").getall()
         preptime_unit = response.css("div.detail-item.detail-item-1 span.detail-item-unit::text").getall()
@@ -63,9 +61,5 @@ class RecipeSpider(scrapy.Spider):
         ingredientPart['ingredients'] = ingredientList
         recipe['ingredients'].append(dict(ingredientPart))
         recipe['directions'] = response.css("li.direction-step::text").getall()
-        self.increment()
 
         yield recipe
-
-    def increment(self):
-        self.idnum = self.idnum + 1

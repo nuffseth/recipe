@@ -7,7 +7,6 @@ import scrapy
 
 class RecipeItem(scrapy.Item):
     id = scrapy.Field()
-    idnum = scrapy.Field()
     imageURL = scrapy.Field()
     name = scrapy.Field()
     author = scrapy.Field()

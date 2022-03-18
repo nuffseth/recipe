@@ -5,11 +5,10 @@ import 'package:bap/utils/size_config.dart';
 
 // Amplify Flutter Packages
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:bap/models/ModelProvider.dart';
 import 'package:bap/amplifyconfiguration.dart';
-import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,23 +18,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
   //Amplify config
   @override
   initState() {
     super.initState();
-    _configureAmplify();
+    _initializeApp();
   }
 
-  void _configureAmplify() async {
+  Future<void> _initializeApp() async {
+    // configure Amplify
+    if (!Amplify.isConfigured) {
+      await _configureAmplify();
+    }
+  }
+
+  Future<void> _configureAmplify() async {
     // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
-    //AmplifyAnalyticsPinpoint analyticsPlugin = AmplifyAnalyticsPinpoint();
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-    await Amplify.addPlugins([authPlugin]);
+    final AmplifyDataStore _datastorePlugin =
+        AmplifyDataStore(modelProvider: ModelProvider.instance);
+    await Amplify.addPlugins([authPlugin, _datastorePlugin]);
 
     // Once Plugins are added, configure Amplify
     // Note: Amplify can only be configured once.
     try {
       await Amplify.configure(amplifyconfig);
+      setState(() {
+        _isLoading = false;
+      });
     } on AmplifyAlreadyConfiguredException {
       print(
           "Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
@@ -44,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int currentIndex = 0;
   static List<Widget> pages = <Widget>[
-    Icon(Icons.account_circle_rounded), //RecipeScreen(),
+    RecipeScreen(),
     Icon(Icons.ac_unit, size: 150),
     Icon(Icons.access_alarm_outlined, size: 150),
     Icon(Icons.account_box, size: 150)
@@ -52,14 +63,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final double padding = 25;
-    final sidePadding = EdgeInsets.symmetric(horizontal: padding);
-    final ThemeData themeData = Theme.of(context);
-
     SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppbar(),
-      body: pages[currentIndex],
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : pages[currentIndex],
       bottomNavigationBar: buildNavbar(),
     );
   }

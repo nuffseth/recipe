@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bap-dev-114836-authRole",
+      "UnauthRoleArn": "arn:aws:iam::402190051798:role/amplify-bap-dev-114836-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::402190051798:role/amplify-bap-dev-114836-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bap-dev-114836-deployment",
+      "UnauthRoleName": "amplify-bap-dev-114836-unauthRole",
+      "StackName": "amplify-bap-dev-114836",
+      "StackId": "arn:aws:cloudformation:us-east-1:402190051798:stack/amplify-bap-dev-114836/e148f280-a6d2-11ec-ab1e-1262360c55cf",
+      "AmplifyAppId": "dv65xwbinj4yh"
+    },
+    "categories": {
+      "auth": {
+        "BapRecipeAuth": {
+          "googleClientId": "732303996954-kvttfj95nv2ov4pfsdalnb1gg650e8sf.apps.googleusercontent.com"
+        }
+      }
+    }
+  }
+}
