@@ -64,12 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: buildAppbar(),
-      body: _isLoading
-          ? Center(child: CircularProgressIndicator())
-          : pages[currentIndex],
-      bottomNavigationBar: buildNavbar(),
+    return Padding(
+      padding: EdgeInsets.only(top: SizeConfig.statusbarheight),
+      child: Scaffold(
+        body: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : pages[currentIndex],
+        bottomNavigationBar: buildNavbar(),
+      ),
     );
   }
 
@@ -88,12 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Container buildNavbar() {
     return Container(
-        height: 60,
+        height: 50,
         decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
           BoxShadow(
               offset: Offset(0, -7),
               blurRadius: 30,
-              color: COLOR_DARK_BLUE.withOpacity(0.2))
+              color: COLOR_BLACK.withOpacity(0.2))
         ]),
         child: BottomNavigationBar(
             onTap: onTap,
@@ -101,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex: currentIndex,
             unselectedFontSize: 0,
             selectedFontSize: 0,
-            selectedItemColor: COLOR_BLACK,
+            selectedItemColor: COLOR_DARK_BLUE,
             unselectedItemColor: COLOR_GREY.withOpacity(0.5),
             showSelectedLabels: false,
             showUnselectedLabels: false,

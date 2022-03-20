@@ -5,6 +5,7 @@ class SizeConfig {
   static late double screenWidth;
   static late double screenHeight;
   static late double defaultSize;
+  static late double statusbarheight;
   static late Orientation orientation;
 
   void init(BuildContext context) {
@@ -12,6 +13,7 @@ class SizeConfig {
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     orientation = _mediaQueryData.orientation;
+    statusbarheight = _mediaQueryData.padding.top;
 
     defaultSize = orientation == Orientation.landscape
         ? screenHeight * 0.024

@@ -42,7 +42,7 @@ class _CategoriesState extends State<Categories> {
       },
       child: Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.only(left: SizeConfig.defaultSize),
+        //margin: EdgeInsets.only(left: SizeConfig.defaultSize),
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.defaultSize, //10
           vertical: SizeConfig.defaultSize * 0.5, //5
@@ -55,7 +55,8 @@ class _CategoriesState extends State<Categories> {
         child: Text(
           categories[index],
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            fontFamily: "Montserrat",
+            fontWeight: FontWeight.w500,
             color: selectedIndex == index ? COLOR_WHITE : COLOR_BLACK,
           ),
         ),

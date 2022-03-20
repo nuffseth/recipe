@@ -1,12 +1,17 @@
 import 'package:bap/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class AppLargeText extends StatelessWidget {
+class SmallText extends StatelessWidget {
   double size;
   final String text;
   Color color;
-  AppLargeText(
-      {Key? key, this.size = 30, required this.text, this.color = COLOR_BLACK})
+  double height;
+  SmallText(
+      {Key? key,
+      this.size = 12,
+      this.height = 1.2,
+      required this.text,
+      this.color = COLOR_GREY})
       : super(key: key);
 
   @override
@@ -15,7 +20,7 @@ class AppLargeText extends StatelessWidget {
         style: TextStyle(
             color: color,
             fontSize: size,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Montserrat"));
+            fontFamily: "Montserrat",
+            height: height));
   }
 }

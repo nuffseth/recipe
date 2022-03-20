@@ -2,7 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bap/custom/AppLargeText.dart';
-import 'package:bap/screens/recipe/components/recipeitem.dart';
+import 'package:bap/screens/recipe/components/RecipeAppBar.dart';
+import 'package:bap/screens/recipe/components/recipelist.dart';
+import 'package:bap/utils/constants.dart';
+import 'package:bap/utils/size_config.dart';
+import 'package:bap/utils/widget_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:bap/screens/recipe/components/categories.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +18,7 @@ import 'package:bap/models/ModelProvider.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
 class RecipeScreen extends StatefulWidget {
   const RecipeScreen({Key? key}) : super(key: key);
@@ -24,8 +29,10 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   bool _isLoading = true;
-
+  ScrollController _controller = ScrollController();
   List<Recipe> _recipes = [];
+  final maxExtent = 230.0;
+  double currentExtent = 0.0;
 
   // Amplify Plugins
   final AmplifyDataStore _datastorePlugin =
@@ -44,10 +51,12 @@ class _RecipeScreenState extends State<RecipeScreen> {
   void dispose() {
     // cancel the subscription when the state is removed from the tree
     _subscription.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
   Future<void> _initializeApp() async {
+    _configureController();
     // configure Amplify
     if (!Amplify.isConfigured) {
       await _configureAmplify();
@@ -100,41 +109,55 @@ class _RecipeScreenState extends State<RecipeScreen> {
     }
   }
 
+  void _configureController() {
+    _controller.addListener(() {
+      currentExtent = maxExtent - _controller.offset;
+      if (currentExtent < 0) currentExtent = 0.0;
+      if (currentExtent > maxExtent) currentExtent = maxExtent;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-                margin: const EdgeInsets.only(left: 20.0),
-                child: AppLargeText(text: "Discover")),
-            SizedBox(height: 10),
-            Categories(),
-            SizedBox(height: 10),
-            _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : RecipeList(recipes: _recipes),
-          ]),
+      body: Container(
+        color: COLOR_WHITE,
+        child: CustomScrollView(controller: _controller, slivers: <Widget>[
+          /* SliverAppBar(toolbarHeight: 30, actions: [Icon(Icons.settings)]),
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          //children: <Widget>[
+          SliverAppBar(
+              title: FittedBox(
+                  child: SizedBox(
+                      width: SizeConfig.screenWidth,
+                      child: AppLargeText(text: "Discover"))),
+              expandedHeight: 85,
+              floating: true,
+              pinned: true,
+              snap: true,
+              bottom: AppBar(title: Categories()))*/
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: const RecipeAppBar(),
+          ),
+          SliverAppBar(
+            elevation: 0.5,
+            forceElevated: true,
+            pinned: true,
+            expandedHeight: kToolbarHeight,
+            primary: false,
+            titleSpacing: 0,
+            title: Categories(),
+          ),
+          //addVerticalSpace(20),
+          /*Categories(),
+          addVerticalSpace(20),*/
+          _isLoading
+              ? SliverFillRemaining(
+                  child: const Center(child: Text("Loading Recipes")))
+              : RecipeList(recipes: _recipes),
+        ]),
+      ),
     );
-  }
-}
-
-class RecipeList extends StatelessWidget {
-  final List<Recipe> recipes;
-
-  const RecipeList({required this.recipes, Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return recipes.isNotEmpty
-        ? Expanded(
-            child: ListView(
-                padding: const EdgeInsets.all(8),
-                children: recipes
-                    .map((recipe) => RecipeItem(recipe: recipe))
-                    .toList()),
-          )
-        : const Center(child: Text('No Recipes Availble'));
   }
 }
