@@ -48,7 +48,7 @@ class _CategoriesState extends State<Categories> {
           vertical: SizeConfig.defaultSize * 0.5, //5
         ),
         decoration: BoxDecoration(
-            color: selectedIndex == index ? COLOR_GREY : Colors.transparent,
+            color: selectedIndex == index ? COLOR_GUN : Colors.transparent,
             borderRadius: BorderRadius.circular(
               SizeConfig.defaultSize * 1.6, // 16
             )),

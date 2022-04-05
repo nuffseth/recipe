@@ -22,7 +22,7 @@ class Info extends StatelessWidget {
             clipper: CustomShape(),
             child: Container(
               height: defaultSize * 15, //150
-              color: COLOR_DARK_BLUE,
+              color: COLOR_GUN,
             ),
           ),
           Center(

@@ -31,12 +31,15 @@ class Recipe extends Model {
   final String id;
   final String? _imageURL;
   final String? _name;
+  final TemporalDateTime? _date;
+  final double? _rating;
+  final int? _totalvotes;
   final String? _author;
   final List<String>? _cuisine;
   final String? _diffulty;
   final int? _servingsize;
-  final String? _preptime;
-  final String? _cookingtime;
+  final TemporalTime? _preptime;
+  final TemporalTime? _cookingtime;
   final List<Ingredients>? _ingredients;
   final List<String>? _directions;
   final TemporalDateTime? _createdAt;
@@ -76,8 +79,56 @@ class Recipe extends Model {
     }
   }
 
-  String? get author {
-    return _author;
+  TemporalDateTime get date {
+    try {
+      return _date!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  double get rating {
+    try {
+      return _rating!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  int get totalvotes {
+    try {
+      return _totalvotes!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  String get author {
+    try {
+      return _author!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(
+          AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   List<String>? get cuisine {
@@ -101,7 +152,7 @@ class Recipe extends Model {
     }
   }
 
-  String get preptime {
+  TemporalTime get preptime {
     try {
       return _preptime!;
     } catch (e) {
@@ -114,7 +165,7 @@ class Recipe extends Model {
     }
   }
 
-  String get cookingtime {
+  TemporalTime get cookingtime {
     try {
       return _cookingtime!;
     } catch (e) {
@@ -147,7 +198,10 @@ class Recipe extends Model {
       {required this.id,
       required imageURL,
       required name,
-      author,
+      required date,
+      required rating,
+      required totalvotes,
+      required author,
       cuisine,
       diffulty,
       required servingsize,
@@ -159,6 +213,9 @@ class Recipe extends Model {
       updatedAt})
       : _imageURL = imageURL,
         _name = name,
+        _date = date,
+        _rating = rating,
+        _totalvotes = totalvotes,
         _author = author,
         _cuisine = cuisine,
         _diffulty = diffulty,
@@ -174,18 +231,24 @@ class Recipe extends Model {
       {String? id,
       required String imageURL,
       required String name,
-      String? author,
+      required TemporalDateTime date,
+      required double rating,
+      required int totalvotes,
+      required String author,
       List<String>? cuisine,
       String? diffulty,
       required int servingsize,
-      required String preptime,
-      required String cookingtime,
+      required TemporalTime preptime,
+      required TemporalTime cookingtime,
       List<Ingredients>? ingredients,
       List<String>? directions}) {
     return Recipe._internal(
         id: id == null ? UUID.getUUID() : id,
         imageURL: imageURL,
         name: name,
+        date: date,
+        rating: rating,
+        totalvotes: totalvotes,
         author: author,
         cuisine: cuisine != null ? List<String>.unmodifiable(cuisine) : cuisine,
         diffulty: diffulty,
@@ -211,6 +274,9 @@ class Recipe extends Model {
         id == other.id &&
         _imageURL == other._imageURL &&
         _name == other._name &&
+        _date == other._date &&
+        _rating == other._rating &&
+        _totalvotes == other._totalvotes &&
         _author == other._author &&
         DeepCollectionEquality().equals(_cuisine, other._cuisine) &&
         _diffulty == other._diffulty &&
@@ -232,6 +298,12 @@ class Recipe extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("imageURL=" + "$_imageURL" + ", ");
     buffer.write("name=" + "$_name" + ", ");
+    buffer.write("date=" + (_date != null ? _date!.format() : "null") + ", ");
+    buffer.write(
+        "rating=" + (_rating != null ? _rating!.toString() : "null") + ", ");
+    buffer.write("totalvotes=" +
+        (_totalvotes != null ? _totalvotes!.toString() : "null") +
+        ", ");
     buffer.write("author=" + "$_author" + ", ");
     buffer.write(
         "cuisine=" + (_cuisine != null ? _cuisine!.toString() : "null") + ", ");
@@ -239,8 +311,12 @@ class Recipe extends Model {
     buffer.write("servingsize=" +
         (_servingsize != null ? _servingsize!.toString() : "null") +
         ", ");
-    buffer.write("preptime=" + "$_preptime" + ", ");
-    buffer.write("cookingtime=" + "$_cookingtime" + ", ");
+    buffer.write("preptime=" +
+        (_preptime != null ? _preptime!.format() : "null") +
+        ", ");
+    buffer.write("cookingtime=" +
+        (_cookingtime != null ? _cookingtime!.format() : "null") +
+        ", ");
     buffer.write("directions=" +
         (_directions != null ? _directions!.toString() : "null") +
         ", ");
@@ -258,18 +334,24 @@ class Recipe extends Model {
       {String? id,
       String? imageURL,
       String? name,
+      TemporalDateTime? date,
+      double? rating,
+      int? totalvotes,
       String? author,
       List<String>? cuisine,
       String? diffulty,
       int? servingsize,
-      String? preptime,
-      String? cookingtime,
+      TemporalTime? preptime,
+      TemporalTime? cookingtime,
       List<Ingredients>? ingredients,
       List<String>? directions}) {
     return Recipe._internal(
         id: id ?? this.id,
         imageURL: imageURL ?? this.imageURL,
         name: name ?? this.name,
+        date: date ?? this.date,
+        rating: rating ?? this.rating,
+        totalvotes: totalvotes ?? this.totalvotes,
         author: author ?? this.author,
         cuisine: cuisine ?? this.cuisine,
         diffulty: diffulty ?? this.diffulty,
@@ -284,12 +366,21 @@ class Recipe extends Model {
       : id = json['id'] == null ? UUID.getUUID() : json['id'],
         _imageURL = json['imageURL'],
         _name = json['name'],
+        _date = json['date'] != null
+            ? TemporalDateTime.fromString(json['date'])
+            : null,
+        _rating = (json['rating'] as num?)?.toDouble(),
+        _totalvotes = (json['totalvotes'] as num?)?.toInt(),
         _author = json['author'],
         _cuisine = json['cuisine']?.cast<String>(),
         _diffulty = json['diffulty'],
         _servingsize = (json['servingsize'] as num?)?.toInt(),
-        _preptime = json['preptime'],
-        _cookingtime = json['cookingtime'],
+        _preptime = json['preptime'] != null
+            ? TemporalTime.fromString(json['preptime'])
+            : null,
+        _cookingtime = json['cookingtime'] != null
+            ? TemporalTime.fromString(json['cookingtime'])
+            : null,
         _ingredients = json['ingredients'] is List
             ? (json['ingredients'] as List)
                 .where((e) => e?['serializedData'] != null)
@@ -309,12 +400,15 @@ class Recipe extends Model {
         'id': id,
         'imageURL': _imageURL,
         'name': _name,
+        'date': _date?.format(),
+        'rating': _rating,
+        'totalvotes': _totalvotes,
         'author': _author,
         'cuisine': _cuisine,
         'diffulty': _diffulty,
         'servingsize': _servingsize,
-        'preptime': _preptime,
-        'cookingtime': _cookingtime,
+        'preptime': _preptime?.format(),
+        'cookingtime': _cookingtime?.format(),
         'ingredients':
             _ingredients?.map((Ingredients? e) => e?.toJson()).toList(),
         'directions': _directions,
@@ -325,6 +419,9 @@ class Recipe extends Model {
   static final QueryField ID = QueryField(fieldName: "recipe.id");
   static final QueryField IMAGEURL = QueryField(fieldName: "imageURL");
   static final QueryField NAME = QueryField(fieldName: "name");
+  static final QueryField DATE = QueryField(fieldName: "date");
+  static final QueryField RATING = QueryField(fieldName: "rating");
+  static final QueryField TOTALVOTES = QueryField(fieldName: "totalvotes");
   static final QueryField AUTHOR = QueryField(fieldName: "author");
   static final QueryField CUISINE = QueryField(fieldName: "cuisine");
   static final QueryField DIFFULTY = QueryField(fieldName: "diffulty");
@@ -354,8 +451,23 @@ class Recipe extends Model {
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Recipe.DATE,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Recipe.RATING,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.double)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Recipe.TOTALVOTES,
+        isRequired: true,
+        ofType: ModelFieldType(ModelFieldTypeEnum.int)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Recipe.AUTHOR,
-        isRequired: false,
+        isRequired: true,
         ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
@@ -378,16 +490,16 @@ class Recipe extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Recipe.PREPTIME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.time)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Recipe.COOKINGTIME,
         isRequired: true,
-        ofType: ModelFieldType(ModelFieldTypeEnum.string)));
+        ofType: ModelFieldType(ModelFieldTypeEnum.time)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
         key: Recipe.INGREDIENTS,
-        isRequired: false,
+        isRequired: true,
         ofModelName: (Ingredients).toString(),
         associatedKey: Ingredients.RECIPEINGREDIENTSID));
 

@@ -5,14 +5,18 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 type Recipe @model{
     imageURL: String!
     name: String!
-    author: String
+    date: AWSDateTime!
+    rating: Float!
+    totalvotes: Int!
+    author: String!
     cuisine: [String]
     diffulty: String
     servingsize: Int!
-    preptime: String!
-    cookingtime: String!
-    ingredients: [Ingredients] @hasMany
+    preptime: AWSTime!
+    cookingtime: AWSTime!
+    ingredients: [Ingredients!] @hasMany
     directions: [String!]
+    
 }
 
 type Ingredients @model{

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-const COLOR_BLACK = Color.fromRGBO(48, 47, 48, 1.0);
+//const COLOR_BLACK = Color.fromRGBO(48, 47, 48, 1.0);
 const COLOR_GREY = Color.fromRGBO(141, 141, 141, 1.0);
-const COLOR_WHITE = Colors.white;
-const COLOR_DARK_BLUE = Color.fromRGBO(25, 20, 45, 1.0);
+//const COLOR_WHITE = Colors.white;
+
+const COLOR_BLACK = Color(0xFF0A0908);
+const COLOR_GUN = Color(0xFF22333B);
+const COLOR_WHITE = Color(0xFFF2F4F3);
 
 const TextTheme TEXT_THEME_DEFAULT = TextTheme(
     headline1: TextStyle(

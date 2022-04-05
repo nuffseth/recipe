@@ -29,7 +29,6 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   bool _isLoading = true;
-  ScrollController _controller = ScrollController();
   List<Recipe> _recipes = [];
   final maxExtent = 230.0;
   double currentExtent = 0.0;
@@ -51,12 +50,10 @@ class _RecipeScreenState extends State<RecipeScreen> {
   void dispose() {
     // cancel the subscription when the state is removed from the tree
     _subscription.cancel();
-    _controller.dispose();
     super.dispose();
   }
 
   Future<void> _initializeApp() async {
-    _configureController();
     // configure Amplify
     if (!Amplify.isConfigured) {
       await _configureAmplify();
@@ -109,20 +106,19 @@ class _RecipeScreenState extends State<RecipeScreen> {
     }
   }
 
-  void _configureController() {
-    _controller.addListener(() {
-      currentExtent = maxExtent - _controller.offset;
-      if (currentExtent < 0) currentExtent = 0.0;
-      if (currentExtent > maxExtent) currentExtent = maxExtent;
-    });
-  }
+  int currentIndex = 0;
+  static List<Widget> pages = <Widget>[
+    RecipeScreen(),
+    Icon(Icons.ac_unit, size: 150),
+    Icon(Icons.access_alarm_outlined, size: 150),
+    Icon(Icons.account_box, size: 150)
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: COLOR_WHITE,
-        child: CustomScrollView(controller: _controller, slivers: <Widget>[
+        child: CustomScrollView(slivers: <Widget>[
           /* SliverAppBar(toolbarHeight: 30, actions: [Icon(Icons.settings)]),
           //crossAxisAlignment: CrossAxisAlignment.start,
           //children: <Widget>[
@@ -144,7 +140,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
             elevation: 0.5,
             forceElevated: true,
             pinned: true,
-            expandedHeight: kToolbarHeight,
+            toolbarHeight: kToolbarHeight,
             primary: false,
             titleSpacing: 0,
             title: Categories(),

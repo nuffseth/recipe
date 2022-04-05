@@ -30,14 +30,14 @@ class ProfileItem extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: defaultSize * 1.6, //16
-                  color: COLOR_DARK_BLUE,
+                  color: COLOR_BLACK,
                 ),
               ),
               Spacer(),
               Icon(
                 Icons.arrow_forward_ios,
                 size: defaultSize * 1.6,
-                color: COLOR_DARK_BLUE,
+                color: COLOR_BLACK,
               )
             ],
           ),

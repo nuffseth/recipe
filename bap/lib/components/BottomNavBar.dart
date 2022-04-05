@@ -26,7 +26,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
           BoxShadow(
               offset: Offset(0, -7),
               blurRadius: 30,
-              color: COLOR_DARK_BLUE.withOpacity(0.2))
+              color: COLOR_BLACK.withOpacity(0.2))
         ]),
         child: BottomNavigationBar(
             onTap: onTap,

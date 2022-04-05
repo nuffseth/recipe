@@ -35,13 +35,13 @@ class RecipeAppBar extends SliverPersistentHeaderDelegate {
           AnimatedContainer(
             duration: const Duration(milliseconds: 100),
             padding: EdgeInsets.lerp(
-              EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              EdgeInsets.symmetric(horizontal: 16, vertical: 5),
               progress,
             ),
             alignment: Alignment.lerp(
               Alignment.bottomLeft,
-              Alignment.bottomLeft,
+              Alignment.centerLeft,
               progress,
             ),
             child: Text(
@@ -54,7 +54,7 @@ class RecipeAppBar extends SliverPersistentHeaderDelegate {
                     fontFamily: "Montserrat"),
                 TextStyle(
                     color: COLOR_BLACK,
-                    fontSize: 15,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Montserrat"),
                 progress,
@@ -70,7 +70,6 @@ class RecipeAppBar extends SliverPersistentHeaderDelegate {
                 onPressed: () {},
               ),
             ],
-            elevation: 0,
           ),
         ],
       ),
@@ -81,7 +80,7 @@ class RecipeAppBar extends SliverPersistentHeaderDelegate {
   double get maxExtent => 90;
 
   @override
-  double get minExtent => AppBar().preferredSize.height;
+  double get minExtent => AppBar().preferredSize.height - 20;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

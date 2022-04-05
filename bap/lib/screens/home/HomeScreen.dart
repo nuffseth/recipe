@@ -75,22 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  AppBar buildAppbar() {
-    return AppBar(
-      centerTitle: true,
-      title: Transform.scale(
-        scale: 2.0,
-        child: IconButton(
-          icon: Image.asset("assets/images/bap.png"),
-          onPressed: () {},
-        ),
-      ),
-    );
-  }
-
   Container buildNavbar() {
     return Container(
-        height: 50,
+        height: 45,
         decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
           BoxShadow(
               offset: Offset(0, -7),
@@ -103,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex: currentIndex,
             unselectedFontSize: 0,
             selectedFontSize: 0,
-            selectedItemColor: COLOR_DARK_BLUE,
-            unselectedItemColor: COLOR_GREY.withOpacity(0.5),
+            selectedItemColor: COLOR_GUN,
+            unselectedItemColor: COLOR_GREY.withOpacity(0.4),
             showSelectedLabels: false,
             showUnselectedLabels: false,
             elevation: 0,

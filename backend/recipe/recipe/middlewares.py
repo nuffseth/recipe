@@ -129,4 +129,7 @@ class TooManyRequestsRetryMiddleware(RetryMiddleware):
         elif response.status in self.retry_http_codes:
             reason = response_status_message(response.status)
             return self._retry(request, reason, spider) or response
+        # this is your check
+        if response.status == 200 and response.body is None:
+            return self._retry(request, "response is None" , spider) or response
         return response 

@@ -14,6 +14,7 @@ class RecipeList extends StatelessWidget {
         ? SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) => RecipeItem(recipe: recipes[index]),
+              childCount: recipes.length,
             ),
           )
         : const SliverFillRemaining(

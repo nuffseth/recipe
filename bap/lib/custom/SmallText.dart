@@ -11,7 +11,7 @@ class SmallText extends StatelessWidget {
       this.size = 12,
       this.height = 1.2,
       required this.text,
-      this.color = COLOR_GREY})
+      this.color = COLOR_BLACK})
       : super(key: key);
 
   @override

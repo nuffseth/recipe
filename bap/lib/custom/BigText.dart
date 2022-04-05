@@ -8,7 +8,7 @@ class BigText extends StatelessWidget {
   TextOverflow overFlow;
   BigText(
       {Key? key,
-      this.size = 20,
+      this.size = 18,
       required this.text,
       this.color = COLOR_BLACK,
       this.overFlow = TextOverflow.ellipsis})
@@ -22,7 +22,7 @@ class BigText extends StatelessWidget {
         style: TextStyle(
             color: color,
             fontSize: size,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
             fontFamily: "Montserrat"));
   }
 }

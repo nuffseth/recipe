@@ -18,7 +18,7 @@ class BorderBox extends StatelessWidget {
       decoration: BoxDecoration(
           color: COLOR_WHITE,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: COLOR_GREY.withAlpha(40), width: 2)),
+          border: Border.all(color: COLOR_GUN.withAlpha(40), width: 2)),
       padding: padding ?? const EdgeInsets.all(6.0),
       child: Center(child: child),
     );
